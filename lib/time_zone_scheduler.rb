@@ -21,34 +21,55 @@ class TimeZoneScheduler
   end
 
   def schedule_in_timeframe(from, timeframe)
-    time = time_in_local_timeframe(from, timeframe, true)
-    time.in_time_zone(Time.zone)
+    timeframe = TimeFrame.new(@time_zone, from, timeframe)
+    if timeframe.reference_before_timeframe?
+      timeframe.min
+    elsif timeframe.reference_after_timeframe?
+      timeframe.min.tomorrow
+    else
+      timeframe.local_time
+    end.in_time_zone(Time.zone)
   end
 
   def in_timeframe?(at, timeframe)
-    time_in_local_timeframe(at, timeframe, false)
+    TimeFrame.new(@time_zone, at, timeframe).reference_in_timeframe?
   end
 
   private
 
-  def time_in_local_timeframe(reference, timeframe, return_time)
-    time = reference.in_time_zone(@time_zone)
-    date = time.strftime('%F')
-    not_before = @time_zone.parse("#{date} #{timeframe.min}")
-    if time < not_before
-      result = :lt
-    else
-      not_after = @time_zone.parse("#{date} #{timeframe.max}")
-      result = time > not_after ? :gt : :eq
+  class TimeFrame
+    def initialize(time_zone, reference_time, timeframe)
+      @time_zone, @reference_time, @timeframe = time_zone, reference_time, timeframe
     end
-    if return_time
-      case result
-      when :lt then not_before
-      when :gt then not_before.tomorrow
-      when :eq then time
-      end
-    else
-      result == :eq
+
+    def local_time
+      @local_time ||= @reference_time.in_time_zone(@time_zone)
+    end
+
+    def min
+      @min ||= @time_zone.parse("#{date} #{@timeframe.min}")
+    end
+
+    def max
+      @max ||= @time_zone.parse("#{date} #{@timeframe.max}")
+    end
+
+    def reference_before_timeframe?
+      local_time < min
+    end
+
+    def reference_after_timeframe?
+      local_time > max
+    end
+
+    def reference_in_timeframe?
+      !reference_before_timeframe? && !reference_after_timeframe?
+    end
+
+    private
+
+    def date
+      @date ||= local_time.strftime('%F')
     end
   end
 end
