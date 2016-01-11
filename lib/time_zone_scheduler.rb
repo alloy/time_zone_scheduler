@@ -19,8 +19,6 @@ require 'active_support/duration'
 # - **destination time**:      The local time of the time zone that the user resides in.
 #
 class TimeZoneScheduler
-  VERSION = "0.1.0"
-
   # @return [ActiveSupport::TimeZone]
   #         the destination time zone for the various calculations this class performs.
   #
