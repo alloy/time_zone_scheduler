@@ -85,5 +85,27 @@ describe TimeZoneScheduler do
       # This is 2015-10-25 15:00 Europe/Moscow.
       TimeZoneScheduler.new('Europe/Moscow').schedule_in_timeframe(@from, @timeframe).must_equal(@real_time + 17.hours)
     end
+
+    #it "raises an error if the `from' time has already passed" do
+      #from = ActiveSupport::TimeZone['Pacific/Kiritimati'].parse('2015-10-25 00:00')
+      #expect do
+        #@scheduler.schedule_in_timezones(from: from, timeframe: '10:00'..'20:00')
+      #end.to raise_error(ArgumentError)
+    #end
+  end
+
+  describe "#in_timeframe?" do
+    it "returns whether or not the local time falls within the allowed timeframe" do
+      # Reference time in UTC: 2015-10-25 12:00
+      at = ActiveSupport::TimeZone["Brazil/East"].parse('2015-10-25 10:00')
+
+      %w{ America/New_York Brazil/East Europe/Amsterdam }.each do |time_zone|
+        TimeZoneScheduler.new(time_zone).in_timeframe?(at, '08:00'..'14:00').must_equal true
+      end
+
+      %w{ Europe/Moscow Pacific/Kiritimati Pacific/Niue }.each do |time_zone|
+        TimeZoneScheduler.new(time_zone).in_timeframe?(at, '08:00'..'14:00').must_equal false
+      end
+    end
   end
 end

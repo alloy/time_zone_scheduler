@@ -25,6 +25,10 @@ class TimeZoneScheduler
     time.in_time_zone(Time.zone)
   end
 
+  def in_timeframe?(at, timeframe)
+    time_in_local_timeframe(at, timeframe, false)
+  end
+
   private
 
   def time_in_local_timeframe(reference, timeframe, return_time)
