@@ -3,7 +3,7 @@ require "time_zone_scheduler/version"
 require "active_support/core_ext/time/zones"
 require 'active_support/duration'
 
-# This class performs time calculations used to schedule as convenient as possible for a user. E.g. when to best deliver
+# A Ruby library that assists in scheduling events whilst taking time zones into account. E.g. when to best deliver
 # notifications such as push notifications or emails.
 #
 # It relies on ActiveSupport’s time and time zone functionality and expects a current system time zone to be specified

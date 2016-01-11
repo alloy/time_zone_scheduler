@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/alloy/time_zone_scheduler.svg?branch=master)](https://travis-ci.org/alloy/time_zone_scheduler)
 
-A library that assists in scheduling events whilst taking time zones into account. E.g. when to best deliver
+A Ruby library that assists in scheduling events whilst taking time zones into account. E.g. when to best deliver
 notifications such as push notifications or emails.
 
 NOTE: _It is not yet battle-tested. This will all follow over the next few weeks._
