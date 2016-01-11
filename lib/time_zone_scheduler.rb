@@ -1,3 +1,5 @@
+require "time_zone_scheduler/version"
+
 require "active_support/core_ext/time/zones"
 require 'active_support/duration'
 
