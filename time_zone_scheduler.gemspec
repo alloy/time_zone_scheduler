@@ -1,7 +1,7 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'time_zone_scheduler/version'
+require 'time_zone_scheduler'
 
 Gem::Specification.new do |spec|
   spec.name          = "time_zone_scheduler"

@@ -1,6 +1,11 @@
 # TimeZoneScheduler
 
-A library that assists in scheduling events whilst taking time zones into account.
+[![Build Status](https://travis-ci.org/alloy/time_zone_scheduler.svg?branch=master)](https://travis-ci.org/alloy/time_zone_scheduler)
+
+A library that assists in scheduling events whilst taking time zones into account. E.g. when to best deliver
+notifications such as push notifications or emails.
+
+NOTE: _It is not yet battle-tested. This will all follow over the next few weeks._
 
 ## Installation
 
@@ -20,7 +25,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+See [the documentation](http://www.rubydoc.info/gems/time_zone_scheduler).
 
 ## Contributing
 
