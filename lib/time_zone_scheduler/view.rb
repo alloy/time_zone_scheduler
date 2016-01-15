@@ -29,15 +29,15 @@ class TimeZoneScheduler
         end
       end
 
-      if respond_to?(:scope)
-        # ActiveRecord
-        define_singleton_method :in_time_zones do
-          time_zone_scopes.call(scope, scope.select(time_zone_field).distinct)
-        end
-      elsif respond_to?(:scoped)
+      if respond_to?(:scoped)
         # Mongoid
         define_singleton_method :in_time_zones do
           time_zone_scopes.call(scoped, scoped.distinct(time_zone_field))
+        end
+      elsif respond_to?(:scope)
+        # ActiveRecord (has dropped `scoped` since v4.0.2)
+        define_singleton_method :in_time_zones do
+          time_zone_scopes.call(scope, scope.select(time_zone_field).distinct)
         end
       else
         raise 'Unknown ORM.'
